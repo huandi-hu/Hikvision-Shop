@@ -1,0 +1,47 @@
+<div class="category-menu-title">
+	<svg xmlns="http://www.w3.org/2000/svg" style="color: fff;" width="24" height="24" fill="currentColor" class="bi bi-list" viewbox="0 0 16 16">
+		<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+	</svg>
+	{{text_category}}
+</div>
+<style>
+	.category-menu-nav {
+		display: flex;
+		flex-direction: column;
+	}
+	@media screen and (max-width: 768px) {
+        .category-item__inner {
+            display: block;
+        }
+    }
+</style>
+<ul class="category-menu-nav ul-li">
+	{% for category in categories %}
+		{% if category.children %}
+			<div class="category-item">
+				<div class="category-item__inner" style="position: relative">
+					<li>
+						<a class="category-link active" href="{{ category.href }}">{{ category.name }}</a>
+					</li>
+					<div class="category-popup-sub-menu category-popup-sub-menu_main">
+						<div class="category-popup-sub-menu__inner">
+							<div class="category-popup-sub-menu__item">
+								<div class="category-popup-sub-menu__link-wrapper">
+									{% for child in category.children %}
+										<li>
+											<a class="subcategory-link" href="{{ child.href }}">{{ child.name }}</a><br></li>
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<li>
+				<a class="category-link active" href="{{ category.href }}">{{ category.name }}</a>
+			</li>
+		{% endif %}
+	{% endfor %}
+</ul>
+
